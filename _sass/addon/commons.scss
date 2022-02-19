@@ -640,7 +640,8 @@ $sidebar-display: "sidebar-display";
   overflow-y: auto;
   width: $sidebar-width;
   z-index: 99;
-  background: var(--sidebar-bg);
+  background-color: #eee;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
 
   /* Hide scrollbar for Chrome, Safari and Opera */
   &::-webkit-scrollbar {
@@ -700,15 +701,16 @@ $sidebar-display: "sidebar-display";
       @extend %clickable-transition;
 
       font-weight: 900;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       letter-spacing: 0.5px;
-      color: rgba(134, 133, 133, 99%);
+      color: rgba(83, 83, 83, 0.99);
     }
   }
 
   .site-subtitle {
     font-size: 95%;
-    color: var(--sidebar-muted-color);
+    font-weight: 600;
+    color: rgba(113, 113, 113, 0.99);
     line-height: 1.2rem;
     word-spacing: 1px;
     margin: 0.5rem 1.5rem 0.5rem 1.5rem;
