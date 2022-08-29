@@ -367,3 +367,30 @@ nav[data-toggle=toc] {
     border-radius: 0;
   }
 }
+
+.post-content {
+  word-break: keep-all;
+  line-height: 2;
+}
+
+// _sass/_layout.scss 
+.collapse-article {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 2rem;
+}
+.collapse-content{
+  padding-top: 5px;
+}
+.collapse-content:before {
+  content: "";
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #bcbcbc;
+}
+.collapse-content:after {
+  content: "";
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #bcbcbc;
+}
