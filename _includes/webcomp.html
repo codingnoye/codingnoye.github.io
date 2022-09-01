@@ -48,8 +48,6 @@
         let template = document.getElementById('boj-elem');
         let templateContent = template.content;
   
-        
-
         const shadowRoot = this.attachShadow({mode: 'open'});
         shadowRoot.appendChild(templateContent.cloneNode(true));
 
@@ -60,7 +58,7 @@
             shadowRoot.getElementById('img').setAttribute('src', `https://static.solved.ac/tier_small/${problem.level}.svg`);
             shadowRoot.getElementById('title').textContent = `${problemId}번: ${problem.titleKo}`;
             shadowRoot.getElementById('link').setAttribute('href', `https://www.acmicpc.net/problem/${problemId}`);
-        }
+        };
 
         window.setTimeout(load, 0);
       }
