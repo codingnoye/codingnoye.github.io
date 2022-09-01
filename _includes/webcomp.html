@@ -54,15 +54,15 @@
         shadowRoot.appendChild(templateContent.cloneNode(true));
 
         const load = async () => {
-            const problemId = parseInt(this.textContent)
-            const problem = (await axios.get(`https://solved.ac/api/v3/problem/show?problemId=${problemId}`)).data
-            console.log(problem)
-            shadowRoot.getElementById('img').setAttribute('src', `https://static.solved.ac/tier_small/${problem.level}.svg`)
-            shadowRoot.getElementById('title').textContent = `${problemId}번: ${problem.titleKo}`
-            shadowRoot.getElementById('link').setAttribute('href', `https://www.acmicpc.net/problem/${problemId}`)
+            const problemId = parseInt(this.textContent);
+            const problem = (await axios.get(`https://solved.ac/api/v3/problem/show?problemId=${problemId}`)).data;
+            console.log(problem);
+            shadowRoot.getElementById('img').setAttribute('src', `https://static.solved.ac/tier_small/${problem.level}.svg`);
+            shadowRoot.getElementById('title').textContent = `${problemId}번: ${problem.titleKo}`;
+            shadowRoot.getElementById('link').setAttribute('href', `https://www.acmicpc.net/problem/${problemId}`);
         }
 
-        window.setTimeout(load, 0)
+        window.setTimeout(load, 0);
       }
     }
   );
