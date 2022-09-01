@@ -16,8 +16,10 @@ layout: compress
 {% endcapture %}
 
 <html lang="{{ site.lang }}"{{ prefer_mode }}>
-
-  {% include head.html %}
+  <head>
+    {% include head.html %}
+    {% include webcomp.html %}
+  </head>
 
   <body data-spy="scroll" data-target="#toc" data-topbar-visible="true">
 

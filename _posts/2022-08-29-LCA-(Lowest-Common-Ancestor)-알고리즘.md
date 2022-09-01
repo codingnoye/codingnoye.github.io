@@ -2,7 +2,7 @@
 layout: post
 title: LCA (Lowest Common Ancestor) 알고리즘
 category: 알고리즘
-tags: []
+tags: [알고리즘, 백준]
 ---
 
 ## 소개
@@ -44,7 +44,7 @@ int lca (int u, int v) {
 ```
 
 이런 방법으로 풀 수 있는 기본 문제가 있으니 시도해보자.  
-[11437번: LCA](https://www.acmicpc.net/problem/11437)
+<boj-elem>11437</boj-elem>
 
 [expand]summary: 코드 보기
 ```cpp
@@ -121,7 +121,7 @@ int main() {
 
 아래는 LCA 2 문제를 해결한 소스다.
 참고하며 읽으면 도움이 될 수도 있다.  
-[11438번: LCA 2](https://www.acmicpc.net/problem/11438)
+<boj-elem>11438</boj-elem>
 
 [expand]summary: 코드 보기
 ```cpp
@@ -202,9 +202,10 @@ int main() {
 
 ## 관련 문제
 
-[1761번: 정점들의 거리](https://www.acmicpc.net/problem/1761)  
+<boj-elem>1761</boj-elem>
 트리의 두 노드간의 거리를 구하는 쿼리들을 처리해야 한다.  
 LCA 관련 문제의 가장 기본적인 유형인 것 같다.  
+
 
 [expand]summary: 풀이
 
@@ -213,7 +214,7 @@ ancestors를 만들 때, 같은 방법으로 2^i번째 조상까지의 거리를
 
 [/expand]
 
-[13511번: 트리와 쿼리](https://www.acmicpc.net/problem/13511)  
+<boj-elem>13511</boj-elem>
 (u, v)간의 경로의 비용을 처리하는 쿼리와, (u, v)간의 경로 중 k번째 정점을 출력하는 쿼리를 진행해야 한다.  
 
 [expand]summary: 힌트
@@ -223,7 +224,7 @@ find의 원리를 잘 생각해보면서 두 가지 쿼리를 각각 짜자.
 
 [/expand]
 
-[15480번: LCA와 쿼리](https://www.acmicpc.net/problem/15480)  
+<boj-elem>15480</boj-elem>
 LCA(u, v)를 구하면 되는데, 쿼리마다 루트가 바뀐다.  
 
 [expand]summary: 힌트

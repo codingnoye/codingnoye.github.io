@@ -1,0 +1,69 @@
+<template id="boj-elem">
+  <style>
+  #link {
+    color: #3b5bb3;
+  }
+  #link:hover {
+    color: #6e8feb;
+  }
+  #link:link {
+    text-decoration: none;
+    color: #3b5bb3;
+    transition: color 0.2s ease-in-out;
+  }
+  #link:link:hover {
+    color: #6e8feb;
+  }
+  #title {
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 19px;
+    transition: border-bottom 0.2s ease-in-out;
+    border-bottom: 1px solid #3b5bb3;
+  }
+  #title:hover {
+    border-bottom: 1px solid #6e8feb;
+  }
+  #wrapper {
+    display: inline-flex;
+  }
+  #img {
+    width: 17px;
+    padding-bottom: 1px;
+    margin-right: 10px;
+  }
+  </style>
+  <a href='#' id="link" target="_blank">
+    <div id="wrapper">
+      <img id="img" src="" /><div id="title"></div>
+    </div>
+  </a>
+</template>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    customElements.define('boj-elem',
+    class extends HTMLElement {
+      constructor() {
+        super();
+        let template = document.getElementById('boj-elem');
+        let templateContent = template.content;
+  
+        
+
+        const shadowRoot = this.attachShadow({mode: 'open'});
+        shadowRoot.appendChild(templateContent.cloneNode(true));
+
+        const load = async () => {
+            const problemId = parseInt(this.textContent)
+            const problem = (await axios.get(`https://solved.ac/api/v3/problem/show?problemId=${problemId}`)).data
+            console.log(problem)
+            shadowRoot.getElementById('img').setAttribute('src', `https://static.solved.ac/tier_small/${problem.level}.svg`)
+            shadowRoot.getElementById('title').textContent = `${problemId}번: ${problem.titleKo}`
+            shadowRoot.getElementById('link').setAttribute('href', `https://www.acmicpc.net/problem/${problemId}`)
+        }
+
+        window.setTimeout(load, 0)
+      }
+    }
+  );
+</script>
