@@ -23,7 +23,7 @@ timezone: Asia/Seoul
 
 title: CodingNoye 블로그                       # the main title
 
-tagline: 조금 더 열심히 🔥   # it will display as the sub-title
+tagline: 조금 더 열심히   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
   코딩노예(CodingNoye) 개발 블로그

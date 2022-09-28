@@ -23,9 +23,9 @@ search:
   no_results: 검색 결과가 없습니다.
 
 panel:
-  lastmod: 최근 업데이트
-  trending_tags: 인기 태그
-  toc: 바로가기
+  lastmod: 최근 작성
+  trending_tags: 추천 태그
+  toc: 목차
 
 copyright:
   # Shown at the bottom of the post
