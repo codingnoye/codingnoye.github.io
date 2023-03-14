@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="ko-KR" data-mode="light" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="prefer-datetime-locale" content="ko"><meta name="generator" content="Jekyll v4.3.2" /><meta property="og:title" content="LCA (Lowest Common Ancestor) 알고리즘" /><meta property="og:locale" content="ko_KR" /><meta name="description" content="소개" /><meta property="og:description" content="소개" /><link rel="canonical" href="https://noye.work/posts/LCA-(Lowest-Common-Ancestor)-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" /><meta property="og:url" content="https://noye.work/posts/LCA-(Lowest-Common-Ancestor)-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" /><meta property="og:site_name" content="CodingNoye 블로그" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2022-08-29T00:00:00+09:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="LCA (Lowest Common Ancestor) 알고리즘" /><meta name="twitter:site" content="@twitter_username" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-09-01T23:04:33+09:00","datePublished":"2022-08-29T00:00:00+09:00","description":"소개","headline":"LCA (Lowest Common Ancestor) 알고리즘","mainEntityOfPage":{"@type":"WebPage","@id":"https://noye.work/posts/LCA-(Lowest-Common-Ancestor)-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/"},"url":"https://noye.work/posts/LCA-(Lowest-Common-Ancestor)-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/"}</script><title>LCA (Lowest Common Ancestor) 알고리즘 | CodingNoye 블로그</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="CodingNoye 블로그"><meta name="application-name" content="CodingNoye 블로그"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script><meta name="google-site-verification" content="0muCofEIYg5xLYNwq5M8CgN4vdjmaYiU37k8XU0F9g0" /> <template id="boj-elem"><style> #link { color: #3b5bb3; } #link:hover { color: #6e8feb; } #link:link { text-decoration: none; color: #3b5bb3; transition: color 0.2s ease-in-out; } #link:link:hover { color: #6e8feb; } #title { font-weight: bold; font-size: 17px; line-height: 19px; transition: border-bottom 0.2s ease-in-out; border-bottom: 1px solid #3b5bb3; } #title:hover { border-bottom: 1px solid #6e8feb; } #wrapper { display: inline-flex; } #img { width: 17px; padding-bottom: 1px; margin-right: 10px; }</style><a href='#' id="link" target="_blank"><div id="wrapper"> <img id="img" src="https://static.solved.ac/tier_small/0.svg" alt="티어" /><div id="title"></div></div></a> </template> <script src="/assets/js/dist/axios.min.js"></script> <script> customElements.define('boj-elem', class extends HTMLElement { constructor() { super(); let template = document.getElementById('boj-elem'); let templateContent = template.content; const shadowRoot = this.attachShadow({mode: 'open'}); shadowRoot.appendChild(templateContent.cloneNode(true)); const load = async () => { const problemId = parseInt(this.textContent); const problem = (await axios.get(`https://solved.ac/api/v3/problem/show?problemId=${problemId}`)).data; console.log(problem); shadowRoot.getElementById('img').setAttribute('src', `https://static.solved.ac/tier_small/${problem.level}.svg`); shadowRoot.getElementById('title').textContent = `${problemId}번: ${problem.titleKo}`; shadowRoot.getElementById('link').setAttribute('href', `https://www.acmicpc.net/problem/${problemId}`); }; window.setTimeout(load, 0); } } ); </script><body data-spy="scroll" data-target="#toc" data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" class="mx-auto"> <img src="/assets/img/profile.png" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title mt-3"> <a href="/">CodingNoye 블로그</a></div><div class="site-subtitle">조금 더 열심히</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>홈</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>카테고리</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>태그</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>소개</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <a href="https://github.com/codingnoye" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['noye','kakao.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a></div></div><div id="topbar-wrapper"><div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4"> <span id="breadcrumb"> <span> <a href="/"> 홈 </a> </span> <span>LCA (Lowest Common Ancestor) 알고리즘</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> 포스트</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="검색..."> </span> <span id="search-cancel" >취소</span></div></div><div id="main-wrapper" class="d-flex justify-content-center"><div id="main" class="container pl-xl-4 pr-xl-4"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pr-xl-4 pb-5"><div class="post pl-1 pr-1 pl-md-2 pr-md-2"><h1 data-toc-skip>LCA (Lowest Common Ancestor) 알고리즘</h1><div class="post-meta text-muted"> <span> Posted <em class="" data-ts="1661698800" data-df="YYYY-MM-DD" data-toggle="tooltip" data-placement="bottom"> 2022-08-29 </em> </span> <span> Updated <em class="" data-ts="1662041073" data-df="YYYY-MM-DD" data-toggle="tooltip" data-placement="bottom"> 2022-09-01 </em> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://github.com/codingnoye">codingnoye</a> </em> </span><div> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="1642 words"> <em>9 min</em> read</span></div></div></div><div class="post-content"><h2 id="소개"><span class="mr-2">소개</span><a href="#소개" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>LCA란 트리에서 두 노드의 가장 가까운 공통 조상을 찾는 알고리즘이다.<br /> 그렇다면 LCA가 필요한 이유는 무엇일까?<br /> 바로 설명하자면 트리에서 최단 경로를 LCA로 구하기 때문이다.<br /> 트리에서 두 노드 u, v의 최단 경로는 u-&gt;LCA + LCA-&gt;v 이다. (조금 생각해보면 트리의 성질에 의해 당연하다는 것을 알 수 있다.)</p><p><img data-src="/assets/img/posts/LCA1.png" alt="LCA1" data-proofer-ignore> 예시: 4와 7의 LCA는 2고 최단 경로는 4-2-5-7이다.</p><p>그럼 LCA를 어떻게 구할 수 있을까?</p><h2 id="접근"><span class="mr-2">접근</span><a href="#접근" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><h3 id="첫-번째-방법"><span class="mr-2">첫 번째 방법</span><a href="#첫-번째-방법" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>naive한 접근으로는 두 노드를 만날 때까지 한 단계씩 옮겨주는 방법을 생각해 볼 수 있다.</p><ul><li>DFS로 트리를 빌드할 때 노드마다 깊이를 기억해 둔다.<li>두 노드가 같아질 때까지 더 낮은 노드를 끌어올린다.</ul><p>간단하게 코드로 설명하자면 아래와 같을 것이다.</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="복사되었습니다!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre><span class="k">const</span> <span class="kt">int</span> <span class="n">MAXN</span> <span class="o">=</span> <span class="mi">50001</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">depth</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span> <span class="c1">// 노드의 깊이</span>
+<span class="kt">int</span> <span class="n">parent</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span> <span class="c1">// 노드의 부모</span>
+
+
+<span class="kt">int</span> <span class="nf">lca</span> <span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">u</span> <span class="o">!=</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">depth</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">depth</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="n">v</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">v</span><span class="p">];</span>
+        <span class="k">else</span> <span class="n">u</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">u</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>이런 방법으로 풀 수 있는 기본 문제가 있으니 시도해보자.</p><boj-elem>11437</boj-elem><p>[expand]summary: 코드 보기</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="복사되었습니다!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+</pre><td class="rouge-code"><pre><span class="cp">#include</span> <span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
+#define fastio cin.tie(0)-&gt;sync_with_stdio(0)
+#define endl '\n'
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">adj_list</span><span class="p">;</span>
+
+<span class="k">const</span> <span class="kt">int</span> <span class="n">MAXN</span> <span class="o">=</span> <span class="mi">50001</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">depth</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">parent</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+
+<span class="kt">void</span> <span class="nf">dfs</span> <span class="p">(</span><span class="n">adj_list</span><span class="o">&amp;</span> <span class="n">G</span><span class="p">,</span> <span class="kt">int</span> <span class="n">now</span><span class="p">,</span> <span class="kt">int</span> <span class="n">par</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">d</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">parent</span><span class="p">[</span><span class="n">now</span><span class="p">]</span> <span class="o">=</span> <span class="n">par</span><span class="p">;</span>
+    <span class="n">depth</span><span class="p">[</span><span class="n">now</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">child</span><span class="o">:</span> <span class="n">G</span><span class="p">[</span><span class="n">now</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">child</span> <span class="o">!=</span> <span class="n">par</span><span class="p">)</span> <span class="n">dfs</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">lca</span> <span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">u</span> <span class="o">!=</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">depth</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">depth</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="n">v</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">v</span><span class="p">];</span>
+        <span class="k">else</span> <span class="n">u</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">u</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">u</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">fastio</span><span class="p">;</span>
+    
+    <span class="kt">int</span> <span class="n">N</span><span class="p">;</span> <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">N</span><span class="p">;</span>
+    <span class="n">adj_list</span> <span class="n">G</span><span class="p">(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">;</span> <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">u</span><span class="o">&gt;&gt;</span><span class="n">v</span><span class="p">;</span>
+        <span class="n">G</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+        <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">dfs</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    
+    <span class="kt">int</span> <span class="n">M</span><span class="p">;</span> <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">M</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">M</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">;</span> <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">u</span><span class="o">&gt;&gt;</span><span class="n">v</span><span class="p">;</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">lca</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>[/expand]</p><h3 id="두-번째-방법"><span class="mr-2">두 번째 방법</span><a href="#두-번째-방법" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>첫 번째 방법의 문제는 무엇일까?</p><p><img data-src="/assets/img/posts/LCA2.png" alt="LCA2" data-proofer-ignore></p><p>시간복잡도가 트리의 깊이에 비례하는 것이다.<br /> 트리가 잘 균형 잡혀있다면 문제가 없겠지만 위 그림과 같은 극단적인 경우 O(N)에 가까워진다. 따라서 다른 방법의 접근이 필요하다.</p><p>트리에서 부모를 향해 이동하는 것은 탐색이 아니라 단순히 한 경로만을 타고 올라가는 것이다. 언제 탐색하든 같은 결과를 얻을 수 있다.<br /> 따라서 우리는 메모리를 써서 DP처럼 이 문제를 다룰 수 있다.</p><ul><li>cost의 대부분은 높이를 맞춰주는 부분에서 발생한다. (높이가 같아진다면 그때부터 root까지는 최대 log N의 높이를 가지기 때문)<li>높이를 빠르게 맞추기 위해, 1번 위의 조상, 2번 위의 조상, 4번 위의 조상, 8번 위의 조상, …, 2^n번 위의 조상을 기록해 놓는다.<li>탐색 시 더 낮은 노드 u에서 높은 노드 v로 끌어올리기 위해, <strong>v의 높이 이하이며 최대한 높은 u의 조상</strong>으로 이동을 반복한다.<li>높이가 같아지면 첫 번째 방법과 똑같이, 두 노드가 같아질때까지 둘다 끌어올리면 된다.</ul><p>위 그림을 기준으로 생각해보면 아래와 같이 진행된다.</p><ul><li>5의 1번째 조상(4), 2번째 조상(3), 4번째 조상(1) 중 6의 높이 이하인 가장 높은 노드는 2번째 조상(3)이므로 3으로 이동<li>3의 1번째 조상(2), 2번째 조상(1) 중 6의 높이 이하인 가장 높은 노드는 1번째 조상(2)이므로 2로 이동<li>높이가 같으므로, 만날 때까지 두 노드를 끌어올리기</ul><p>아래는 LCA 2 문제를 해결한 소스다. 참고하며 읽으면 도움이 될 수도 있다.</p><boj-elem>11438</boj-elem><p>[expand]summary: 코드 보기</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="복사되었습니다!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+</pre><td class="rouge-code"><pre><span class="cp">##include &lt;bits/stdc++.h&gt;
+#define fastio cin.tie(0)-&gt;sync_with_stdio(0)
+#define endl '\n'
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">ll</span><span class="p">;</span>
+
+<span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">adj_list</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">LCA</span> <span class="p">{</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">depths</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">ancestors</span><span class="p">;</span>
+<span class="nl">public:</span>
+    <span class="n">LCA</span> <span class="p">(</span><span class="n">adj_list</span><span class="o">&amp;</span> <span class="n">tree</span><span class="p">,</span> <span class="kt">int</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 양방향 리스트로부터 LCA 트리 빌드하기</span>
+        <span class="c1">// ancestors[i] = 2^i번째 조상</span>
+        <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="n">tree</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="n">ancestors</span> <span class="o">=</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
+        <span class="n">depths</span> <span class="o">=</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
+
+        <span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span> <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="n">ancestors</span><span class="p">[</span><span class="n">root</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">now</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span> <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="kt">int</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">depths</span><span class="p">[</span><span class="n">now</span><span class="p">];</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span> <span class="n">d</span><span class="o">&lt;=</span><span class="n">depth</span><span class="p">;</span> <span class="n">d</span><span class="o">&lt;&lt;=</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">ancestors</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">ancestors</span><span class="p">[</span><span class="n">ancestors</span><span class="p">[</span><span class="n">now</span><span class="p">][</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]][</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
+            <span class="p">}</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">child</span><span class="o">:</span> <span class="n">tree</span><span class="p">[</span><span class="n">now</span><span class="p">])</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">ancestors</span><span class="p">[</span><span class="n">now</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">child</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+                <span class="n">ancestors</span><span class="p">[</span><span class="n">child</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">now</span><span class="p">);</span>
+                <span class="n">depths</span><span class="p">[</span><span class="n">child</span><span class="p">]</span> <span class="o">=</span> <span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">child</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">depths</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">depths</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="n">swap</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+        <span class="c1">// ancestors를 이용해 끌어올리기</span>
+        <span class="kt">int</span> <span class="n">dv</span> <span class="o">=</span> <span class="n">depths</span><span class="p">[</span><span class="n">v</span><span class="p">];</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">depths</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">dv</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">depths</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">-</span> <span class="n">dv</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">jump</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">jumpd</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">jumpd</span><span class="o">&lt;&lt;</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">diff</span><span class="p">)</span> <span class="n">jumpd</span><span class="o">&lt;&lt;=</span><span class="mi">1</span><span class="p">,</span> <span class="n">jump</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">ancestors</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">jump</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">u</span> <span class="o">!=</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">jump</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">jump</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">jump</span><span class="o">&lt;</span><span class="n">ancestors</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">ancestors</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">jump</span><span class="p">]</span><span class="o">!=</span><span class="n">ancestors</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">jump</span><span class="p">];</span> <span class="n">jump</span><span class="o">++</span><span class="p">);</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">ancestors</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">jump</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">ancestors</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">jump</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">u</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">fastio</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">N</span><span class="p">;</span> <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">N</span><span class="p">;</span>
+    <span class="n">adj_list</span> <span class="n">G</span><span class="p">(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">;</span> <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">u</span><span class="o">&gt;&gt;</span><span class="n">v</span><span class="p">;</span>
+        <span class="n">G</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+        <span class="n">G</span><span class="p">[</span><span class="n">v</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">LCA</span> <span class="nf">lca</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    
+    <span class="kt">int</span> <span class="n">M</span><span class="p">;</span> <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">M</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">M</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">;</span> <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">u</span><span class="o">&gt;&gt;</span><span class="n">v</span><span class="p">;</span>
+        <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">lca</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>[/expand]</p><h2 id="관련-문제"><span class="mr-2">관련 문제</span><a href="#관련-문제" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><boj-elem>1761</boj-elem><p>트리의 두 노드간의 거리를 구하는 쿼리들을 처리해야 한다.<br /> LCA 관련 문제의 가장 기본적인 유형인 것 같다.</p><p>[expand]summary: 풀이</p><p>ancestors를 만들 때, 같은 방법으로 2^i번째 조상까지의 거리를 기록해놓는다.<br /> 탐색시 조상으로 이동할 때마다 거리도 같이 계산해준다.</p><p>[/expand]</p><boj-elem>13511</boj-elem><p>(u, v)간의 경로의 비용을 처리하는 쿼리와, (u, v)간의 경로 중 k번째 정점을 출력하는 쿼리를 진행해야 한다.</p><p>[expand]summary: 힌트</p><p>최단경로가 u -&gt; LCA + LCA -&gt; v라는 점을 잘 생각해서,<br /> find의 원리를 잘 생각해보면서 두 가지 쿼리를 각각 짜자.</p><p>[/expand]</p><boj-elem>15480</boj-elem><p>LCA(u, v)를 구하면 되는데, 쿼리마다 루트가 바뀐다.</p><p>[expand]summary: 힌트</p><p>그려놓고 여러 케이스를 생각해보며 관찰을 열심히 해보자. 파이팅!<br /> (죄송.. 생각보다 쉽게 찾아짐)</p><p>[/expand]</p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/'>알고리즘</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" class="post-tag no-text-decoration" >알고리즘</a> <a href="/tags/%EB%B0%B1%EC%A4%80/" class="post-tag no-text-decoration" >백준</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">공유하기</span> <span class="share-icons"> <a href="" data-toggle="tooltip" data-placement="top" title="" target="_blank" rel="noopener" aria-label=""> <i class="fa-fw "></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="링크 복사하기" data-title-succeed="링크가 복사되었습니다!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">최근 작성</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/DMLab-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%8A%A4%ED%84%B0%EB%94%94-11%EC%A3%BC%EC%B0%A8/">DMLab 알고리즘 스터디 11주차</a><li><a href="/posts/PS%EC%9A%A9-%EC%84%B8%ED%8C%85-%EC%A0%95%EB%A6%AC/">PS용 세팅 정리</a><li><a href="/posts/DMLab-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%8A%A4%ED%84%B0%EB%94%94-7%EC%A3%BC%EC%B0%A8/">DMLab 알고리즘 스터디 7주차</a><li><a href="/posts/DMLab-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%8A%A4%ED%84%B0%EB%94%94-5%EC%A3%BC%EC%B0%A8/">DMLab 알고리즘 스터디 5주차</a><li><a href="/posts/DMLab-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%8A%A4%ED%84%B0%EB%94%94-4%EC%A3%BC%EC%B0%A8/">DMLab 알고리즘 스터디 4주차</a></ul></div><div id="access-tags"><div class="panel-heading">추천 태그</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">알고리즘</a> <a class="post-tag" href="/tags/%EB%B0%B1%EC%A4%80/">백준</a> <a class="post-tag" href="/tags/icpc/">ICPC</a> <a class="post-tag" href="/tags/ps/">PS</a> <a class="post-tag" href="/tags/%EA%B5%AD%EB%AF%BC%EB%8C%80%ED%95%99%EA%B5%90/">국민대학교</a> <a class="post-tag" href="/tags/%ED%99%98%EA%B2%BD/">환경</a></div></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">목차</div><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 pl-3 pr-3 pr-xl-4"><div id="related-posts" class="mb-2 mb-sm-4"><h3 class="pt-2 mb-4 ml-1" data-toc-skip>관련된 글</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/DMLab-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%8A%A4%ED%84%B0%EB%94%94-5%EC%A3%BC%EC%B0%A8/"><div class="card-body"> <em class="small" data-ts="1663081200" data-df="YYYY-MM-DD" > 2022-09-14 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>DMLab 알고리즘 스터디 5주차</h3><div class="text-muted small"><p> 개요 5주차 스터디는 누적합 관련 6문제였다. A번 13900 문제 요약 N개의 정수 중, 모든 서로 다른 위치의 수의 곱들의 합을 구하는 문제 설명 모든 수들의 합을 미리 구해 놓고, (모든 수의 합 - A[i]) * A[i]를 모든 i에 대해 해주면 된다. B번 14465 문제 요약 직선 위에 신호등이 1간격으로 쭉 있었는데, 그 ...</p></div></div></a></div><div class="card"> <a href="/posts/DMLab-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%8A%A4%ED%84%B0%EB%94%94-6%EC%A3%BC%EC%B0%A8/"><div class="card-body"> <em class="small" data-ts="1663686000" data-df="YYYY-MM-DD" > 2022-09-21 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>DMLab 알고리즘 스터디 6주차</h3><div class="text-muted small"><p> 개요 6주차 스터디는 정렬 관련 6문제였다. A번 9237 문제 요약 묘목을 심는데 1일, 자라는데 T_i일이 걸린다. 묘목을 모두 심어서 다 자라게 하는 최소 일수 구하기 설명 정렬해서 오래 걸리는 것부터 심으면 된다. B번 18310 문제 요약 일직선 위에 집들의 위치가 주어질 때, 안테나를 설치해 집들과의 거리의 총합을 최소화하려...</p></div></div></a></div><div class="card"> <a href="/posts/DMLab-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%8A%A4%ED%84%B0%EB%94%94-7%EC%A3%BC%EC%B0%A8/"><div class="card-body"> <em class="small" data-ts="1664290800" data-df="YYYY-MM-DD" > 2022-09-28 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>DMLab 알고리즘 스터디 7주차</h3><div class="text-muted small"><p> 개요 7주차 스터디는 수학 관련 4문제였다. (이번 주부터 못 풀더라도 꼭 문제를 파악하게 오는 것으로 바뀌어서 4문제가 되었다.) A번 2089 문제 요약 어떤 수 N이 주어졌을 때, -2진수로 나타내기 설명 케이스 워크로 풀었는데, 생각해보니 -2진수는 2진수와 같은 원리로 풀 수 있었다. 그 풀이는 영문 위키피디아로 대체 내가 생각한 ...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"><div class="btn btn-outline-primary disabled" prompt="이전 글"><p>-</p></div><a href="/posts/DMLab-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%8A%A4%ED%84%B0%EB%94%94-4%EC%A3%BC%EC%B0%A8/" class="btn btn-outline-primary" prompt="다음 글"><p>DMLab 알고리즘 스터디 4주차</p></a></div></div></div><footer class="row pl-3 pr-3"><div class="col-12 d-flex justify-content-between align-items-center text-muted pl-0 pr-0"><div class="footer-left"><p class="mb-0"> © 2023 <a href="https://github.com/codingnoye">codingnoye</a>. <span data-toggle="tooltip" data-placement="top" title="명시되지 않는 한 이 사이트의 블로그 게시물은 작성자의 Creative Commons Attribution 4.0 International(CC BY 4.0) 라이선스에 따라 사용이 허가되었습니다.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">추천 태그</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">알고리즘</a> <a class="post-tag" href="/tags/%EB%B0%B1%EC%A4%80/">백준</a> <a class="post-tag" href="/tags/icpc/">ICPC</a> <a class="post-tag" href="/tags/ps/">PS</a> <a class="post-tag" href="/tags/%EA%B5%AD%EB%AF%BC%EB%8C%80%ED%95%99%EA%B5%90/">국민대학교</a> <a class="post-tag" href="/tags/%ED%99%98%EA%B2%BD/">환경</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a><div id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-autohide="false"><div class="toast-header"> <button type="button" class="ml-2 ml-auto close" data-dismiss="toast" aria-label="Close"> <span aria-hidden="true">&times;</span> </button></div><div class="toast-body text-center pt-0"><p class="pl-2 pr-2 mb-3">새 버전의 콘텐츠를 사용할 수 있습니다.</p><button type="button" class="btn btn-primary" aria-label="Update"> 업데이트 </button></div></div><script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">검색 결과가 없습니다.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lozad/dist/lozad.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/ko.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/app.js"></script> <script src="/assets/js/expand.js"></script>
