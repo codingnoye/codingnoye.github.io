@@ -94,7 +94,25 @@
 <link rel="stylesheet" href="{{ site.data.assets[origin].fontawesome.css | relative_url }}">
 
 <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  {% if page.image %}
+    {% assign img = page.image.path | default: page.image %}
 
+    {% unless img contains '://' %}
+      {% assign img_path = page.img_path | append: '/' | append: img | replace: '//', '/' %}
+      {% capture target %}"{{ img | absolute_url }}"{% endcapture %}
+
+      {% if site.img_cdn contains '//' %}
+        <!-- it's a cross-origin URL -->
+        {% capture replacement %}"{{ site.img_cdn }}{{ img_path }}"{% endcapture %}
+      {% else %}
+        <!-- it's a local file path -->
+        {%- capture replacement -%}
+          "{{ site.img_cdn | append: '/' | append: img_path | replace: '//', '/' | absolute_url }}"
+        {%- endcapture -%}
+      {% endif %}
+    {% endunless %}
+  {% endif %}
+  
 {% if site.toc and page.toc %}
   <link rel="stylesheet" href="{{ site.data.assets[origin].bootstrap-toc.css | relative_url }}">
 {% endif %}

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Init the evrionment for new user.
+# Init the environment for new user.
 
 set -eu
 
@@ -20,8 +20,8 @@ help() {
 
 check_status() {
   if [[ -n $(git status . -s) ]]; then
-    echo "Error: Commit unstaged files first, and then run this tool againt."
-    exit -1
+    echo "Error: Commit unstaged files first, and then run this tool again."
+    exit 1
   fi
 }
 
@@ -33,7 +33,8 @@ check_init() {
   else
     if [[ -f .github/workflows/$ACTIONS_WORKFLOW ]]; then
       # on BSD, the `wc` could contains blank
-      local _count="$(find .github/workflows/ -type f -name "*.yml" | wc -l)"
+      local _count
+      _count=$(find .github/workflows/ -type f -name "*.yml" | wc -l)
       if [[ ${_count//[[:blank:]]/} == 1 ]]; then
         _has_inited=true
       fi
@@ -46,43 +47,32 @@ check_init() {
   fi
 }
 
+checkout_latest_tag() {
+  tag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
+  git reset --hard "$tag"
+}
+
 init_files() {
   if $_no_gh; then
     rm -rf .github
   else
     ## Change the files of `.github`
-
     mv .github/workflows/$ACTIONS_WORKFLOW.hook .
     rm -rf .github
     mkdir -p .github/workflows
     mv ./${ACTIONS_WORKFLOW}.hook .github/workflows/${ACTIONS_WORKFLOW}
 
-    ## Ensure the gh-actions trigger branch
-
-    _workflow=".github/workflows/${ACTIONS_WORKFLOW}"
-    _default_branch="$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')"
-    _lineno="$(sed -n "/branches:/=" "$_workflow")"
-
-    sed -i.$TEMP_SUFFIX "$((_lineno + 1))s/- .*/- ${_default_branch}/" "$_workflow"
-    rm -f "$_workflow.$TEMP_SUFFIX"
-
     ## Cleanup image settings in site config
     sed -i.$TEMP_SUFFIX "s/^img_cdn:.*/img_cdn:/;s/^avatar:.*/avatar:/" _config.yml
     rm -f _config.yml.$TEMP_SUFFIX
-
   fi
 
-  # trace the gem lockfile on user-end
-  sed -i.$TEMP_SUFFIX "/Gemfile.lock/d" .gitignore
-  rm -f ".gitignore.$TEMP_SUFFIX"
-
   # remove the other fies
-  rm -f .travis.yml
   rm -rf _posts/*
 
   # save changes
   git add -A
-  git commit -m "[Automation] Initialize the environment." -q
+  git commit -m "chore: initialize the environment" -q
 
   echo "[INFO] Initialization successful!"
 }
@@ -111,5 +101,7 @@ while (($#)); do
     ;;
   esac
 done
+
+checkout_latest_tag
 
 init_files
