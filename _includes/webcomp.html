@@ -53,7 +53,7 @@
 
         const load = async () => {
             const problemId = parseInt(this.textContent);
-            const problem = (await axios.get(`http://mm.noye.work:9001/problems/${problemId}`)).data;
+            const problem = (await axios.get(`https://solvedac.noye.work/problems/${problemId}`)).data;
             console.log(problem);
             shadowRoot.getElementById('img').setAttribute('src', `https://static.solved.ac/tier_small/${problem.level}.svg`);
             shadowRoot.getElementById('title').textContent = `${problemId}번: ${problem.titleKo}`;
